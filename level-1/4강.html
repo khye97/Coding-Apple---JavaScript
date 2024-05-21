@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4강</title>
+  <style>
+    .alert-box {
+      background-color: skyblue;
+      padding: 20px;
+      color: #fff;
+      border-radius: 5px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="alert-box">
+    <p class="text">알림창임</p>
+    <button class="close-btn">닫기</button>
+  </div>
+
+  <button class="btn-id">아이디</button>
+  <button class="btn-pw">비밀번호</button>
+
+  <script>
+    // document.querySelector('.btn').addEventListener('click', function(){
+    //   알림창열고닫기('block');
+    // });
+
+    document.querySelector('.close-btn').addEventListener('click', function(){
+      알림창열고닫기('none');
+    });
+
+    function 알림창열고닫기(구멍){
+      document.querySelector('.alert-box').style.display = 구멍;
+    }
+    
+    function 알림창(message){
+      document.querySelector('.text').innerHTML = message;
+    }
+
+    document.querySelector('.btn-id').addEventListener('click', function(){
+      알림창열고닫기('block');
+      알림창('아이디를 입력하세요');
+    });
+
+    document.querySelector('.btn-pw').addEventListener('click', function(){
+      알림창열고닫기('block');
+      알림창('비밀번호를 입력하세요');
+    });
+
+  </script>
+</body>
+</html>

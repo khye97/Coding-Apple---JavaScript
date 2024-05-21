@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2강</title>
+  <style>
+    .alert-box {
+      background-color: skyblue;
+      padding: 20px;
+      color: #fff;
+      border-radius: 5px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="alert-box">
+    알림창임
+  <button class="close-btn">닫기</button>
+  </div>
+  <button class="btn">알림창열기</button>
+
+  <script>
+    document.querySelector('.btn').addEventListener('click', function(){
+      알림창열기();
+    });
+
+    document.querySelector('.close-btn').addEventListener('click', function(){
+      알림창닫기();
+    });
+
+    function 알림창열기 (){
+      document.querySelector('.alert-box').style.display = 'block';
+    }
+
+    function 알림창닫기 (){
+      document.querySelector('.alert-box').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

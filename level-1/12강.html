@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>12강</title>
+</head>
+<body>
+  <script>
+    // 1. 369게임
+    function 삼육구게임(숫자){
+      if (숫자 % 9 == 0){
+        console.log('박수박수');
+      } else if (숫자 % 3 == 0){
+        console.log('박수');
+      } else {
+        console.log('통과');
+      }
+    }
+    삼육구게임(9);
+    삼육구게임(12);
+    삼육구게임(13);
+
+    console.log('--------------------------------');
+
+    // 120점 이상이면 합격
+    // 한 과목이 40점 미만이면 불합격
+
+    function 합격여부 (score1, score2){
+      if (score1 < 0 || score2 < 0){
+        console.log('잘못된 점수입니다1');
+      } else if (score1 > 100 || score2 > 100){
+        console.log('잘못된 점수입니다2');
+      } else if (score1 < 40 || score2 < 40){
+        console.log('불합격1');
+      } else if (score1 + score2 < 120){
+        console.log('불합격2');
+      } else {
+        console.log('합격');
+      }
+    }
+    합격여부(70, 70);
+    합격여부(30, 100);
+    합격여부(50, 50);
+    합격여부(-10, 70);
+    합격여부(120, 100);
+
+    console.log('--------------------------------');
+
+    // 369게임 2
+    
+
+  </script>
+</body>
+</html>
