@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>장바구니 페이지</title>
+</head>
+<body>
+  <div>장바구니 페이지</div>
+  <div class="cart">
+
+  </div>
+
+  <script>
+    // 로컬 스토리지에 자료 저장하기
+    // localStorage.setItem('이름', 'kim');
+    // 로컬 스토리지에 있는 자료 출력하기
+    // console.log(localStorage.getItem('나이'));
+    // 로컬 스토리지에 있는 자료 삭제하기 
+    //localStorage.removeItem('나이');
+
+    // json화 해제한 cart 배열
+    var arr = JSON.parse(localStorage.getItem('cart'));
+    
+    for (let i = 0; i < arr.length; i++){
+      console.log(arr[i]);
+      var 템플릿 = `<p>${arr[i]}</p>`
+      document.querySelector('.cart').insertAdjacentHTML('beforeend', 템플릿);
+    }
+
+
+
+  </script>
+</body>
+</html>

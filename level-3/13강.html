@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>13강</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>    
+  <style>
+    .btn {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+        <!--<div class="col-sm-4">
+          <img src="https://via.placeholder.com/600" class="w-100">
+          <h5>Card title</h5>
+          <p>가격 : 70000</p>
+        </div>-->
+    </div>
+  </div> 
+  <div class="container">
+    <button class="btn btn-danger btn-more">더보기</button>
+  </div>
+  <div class="container">
+    <button class="btn btn-danger btn-price">가격순 정렬</button>
+  </div>
+  <div class="container">
+    <button class="btn btn-danger btn-range">다나가순 정렬</button>
+  </div>
+  <div class="container">
+    <button class="btn btn-danger btn-filter">6만원 이하 상품만 보기</button>
+  </div>
+  
+  <script>
+
+    var products = [
+      { id : 0, price : 70000, title : 'Blossom Dress' },
+      { id : 1, price : 50000, title : 'Springfield Shirt' },
+      { id : 2, price : 60000, title : 'Black Monastery' }
+    ];
+
+    // 상품 카드 만드는 함수
+    function 더보기 (상품데이터){
+      for (let i = 0; i < 상품데이터.length; i++){
+        var 템플릿 = `<div class="col-sm-4">
+                        <img src="https://via.placeholder.com/600" class="w-100">
+                        <h5>${상품데이터[i].title}</h5>
+                        <p>가격 : ${상품데이터[i].price}</p>
+                        <button class="buy">구매</button>
+                      </div>`
+        document.querySelector('.row').insertAdjacentHTML('beforeend', 템플릿);
+      }
+    }
+    더보기(products);
+
+    // 더보기 버튼 누르면 ajax 요청으로 정보 가져오기
+    var count = 0;
+    document.querySelector('.btn-more').addEventListener('click', function(){
+      count += 1;
+      if (count == 1) {
+        fetch('https://codingapple1.github.io/js/more1.json').then(res => res.json()).then(data => {
+        더보기(data);
+        });
+      } else if (count == 2){
+        fetch('https://codingapple1.github.io/js/more2.json').then(res => res.json()).then(data => {
+        더보기(data);
+        });
+        document.querySelector('.btn-more').disabled = true;
+      } 
+    });
+
+    // 가격순 정렬하기 
+    document.querySelector('.btn-price').addEventListener('click', function(){
+      products.sort(function(a, b){
+        return a.price - b.price;
+      });
+      document.querySelector('.row').innerHTML = '';
+      더보기(products);
+    });
+
+    // 6만원 이하 상품만 보기
+    document.querySelector('.btn-filter').addEventListener('click', function(){
+      var newArr = 0;
+      newArr = products.filter(function(a){
+        return a.price <= 60000;
+      });
+      document.querySelector('.row').innerHTML = '';
+      더보기(newArr);
+    });
+
+    // 상품명 다나가순 정렬
+    document.querySelector('.btn-range').addEventListener('click', function(){
+      products.sort(function(a, b){
+        if (a.title < b.title) {return 1}
+        if (a.title == b.title) {return 0}
+        if (a.title > b.title) {return -1}
+      });
+      console.log(products);
+      document.querySelector('.row').innerHTML = '';
+      더보기(products);
+    });
+
+
+    
+    // 로컬 스토리지에 자료 저장하기
+    // localStorage.setItem('이름', 'kim');
+    // 로컬 스토리지에 있는 자료 출력하기
+    // console.log(localStorage.getItem('나이'));
+    // 로컬 스토리지에 있는 자료 삭제하기 
+    //localStorage.removeItem('나이');
+
+
+    // 구매 버튼 누르면
+    // 로컬 스토리지에 카트가 없을 경우
+    // 카트 이름을 가진 배열을 새로 만들어서 저장
+    // 로컬 스토리지에 카트가 있을 경우
+    // 1. 자료 꺼내기  2. json화 해제  3. 배열 수정하기  4. 다시 json화 시키기  5. 자료 저장
+    // 로컬 스토리지에 없는 것을 꺼낼 경우 null이 출력됨
+    
+
+    // $('.buy').on('click', function(e){
+    //   var title = $(e.target).siblings('h5').html();
+    //   localStorage.setItem('cart', JSON.stringify([title]));
+    // });
+
+    for (let i = 0; i < products.length; i++) {
+      document.querySelectorAll('.buy')[i].addEventListener('click', function(e){
+      var item = e.target.previousElementSibling.previousElementSibling.innerHTML;
+      // 구매 버튼의 윗 형제형제 요소(제품명) 찾기
+      if (localStorage.getItem('cart') == null) {
+        localStorage.setItem('cart', JSON.stringify([item]));
+      } else if (localStorage.getItem('cart') != null) {
+        var newArr = JSON.parse(localStorage.getItem('cart')); // 1. 자료를 꺼내 json화 해제하기
+        newArr.push(item); // 2. 배열 수정하기
+        localStorage.setItem('cart', JSON.stringify(newArr)); // 3. 다시 자료를 json화 시켜 집어넣기
+      }
+      });
+    }
+    
+
+
+
+
+
+
+
+    // forEach문으로 만들기 
+    // products.forEach(function(a, i){
+    //   var 템플릿 = `<div class="col-sm-4">
+    //                   <img src="https://via.placeholder.com/600" class="w-100">
+    //                   <h5>${products[i].title}</h5>
+    //                   <p>가격 : ${products[i].price}</p>
+    //                </div>`
+    //  document.querySelector('.row').insertAdjacentHTML('beforeend', 템플릿);
+    // });
+  </script> 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
