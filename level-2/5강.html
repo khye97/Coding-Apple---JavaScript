@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5강</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <style>
+      .list-group {
+        display: none;
+        height: 0;
+        overflow: hidden;
+        transition: all 500ms;
+      }
+      .show {
+        display: block;
+        height: 205px;
+      }
+      .black-bg {
+        width : 100%;
+        height : 100%;
+        position : fixed;
+        background : rgba(0,0,0,0.5);
+        z-index : 5;
+        padding: 30px;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 500ms;
+      }
+      .white-bg {
+        background: white;
+        border-radius: 5px;
+        padding: 30px;
+      } 
+      .show-modal {
+        visibility: visible;
+        opacity: 1;
+      }
+      .main-bg {
+        padding: 100px 20px;
+        background-color: lightgray;
+      }
+      .slide-container {
+        width: 400vw;
+        transition: all 1s;
+      }
+      .slide-box {
+        width: 100vw;
+        float: left;
+      }
+      .slide-box img {
+        width: 100%;
+      }
+    </style>
+</head>
+<body>
+  <div class="black-bg">
+    <div class="white-bg">
+      <h4>로그인하세요</h4>
+      <form action="success.html">
+        <div class="my-3">
+          <input type="text" class="form-control id">
+        </div>
+        <div class="my-3">
+          <input type="password" class="form-control password">
+        </div>
+        <button type="submit" class="btn btn-primary submit">전송</button>
+        <button type="button" class="btn btn-danger" id="close">닫기</button>
+      </form> 
+    </div>
+  </div> 
+
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <span class="navbar-brand">Navbar</span>
+      <span class="badge bg-dark ms-auto mx-3">Dark 🔄</span>
+      <button class="navbar-toggler" type="button">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav> 
+
+  <ul class="list-group">
+    <li class="list-group-item">An item</li>
+    <li class="list-group-item">A second item</li>
+    <li class="list-group-item">A third item</li>
+    <li class="list-group-item">A fourth item</li>
+    <li class="list-group-item">And a fifth one</li>
+  </ul>
+
+  <div class="main-bg">
+    <h4>Shirts on Sale</h4>
+    <button id="login" class="btn btn-danger">로그인</button>
+  </div>
+
+  <div class="alert alert-danger">
+    <span class="timer">5</span>초 이내 구매시 사은품 증정
+  </div>
+
+  <div style="overflow: hidden;">
+    <div class="slide-container">
+      <div class="slide-box">
+        <img src="./img/car1.png">
+      </div>
+      <div class="slide-box">
+        <img src="./img/car2.png">
+      </div>
+      <div class="slide-box">
+        <img src="./img/car3.png">
+      </div>
+      <div class="slide-box">
+        <img src="./img/car1.png">
+      </div>
+    </div>
+  </div>
+
+  </div>
+  <button class="slide-1">1</button>
+  <button class="slide-2">2</button>
+  <button class="slide-3">3</button>
+  <button class="slide-4">4</button>
+  <button class="prev">이전</button>
+  <button class="next">다음</button>
+
+  <script>
+    // 캐러셀
+    // 1번 버튼
+    document.querySelector('.slide-1').addEventListener('click', function(){
+      document.querySelector('.slide-container').style.transform = 'translateX(0vw)'
+      지금사진 = 1;
+    });
+    // 2번 버튼
+    document.querySelector('.slide-2').addEventListener('click', function(){
+      document.querySelector('.slide-container').style.transform = 'translateX(-100vw)'
+      지금사진 = 2;
+    });
+    // 3번 버튼
+    document.querySelector('.slide-3').addEventListener('click', function(){
+      document.querySelector('.slide-container').style.transform = 'translateX(-200vw)'
+      지금사진 = 3;
+    });
+    // 4번 버튼
+    document.querySelector('.slide-4').addEventListener('click', function(){
+      document.querySelector('.slide-container').style.transform = 'translateX(-300vw)'
+      지금사진 = 4;
+    });
+    // 다음 버튼
+    var 지금사진 = 1;
+    
+    // document.querySelector('.next').addEventListener('click', function(){
+    //   if (지금사진 == 1){
+    //     document.querySelector('.slide-container').style.transform = 'translateX(-100vw)'
+    //     지금사진 += 1;
+    //     console.log(지금사진);
+    //   } else if (지금사진 == 2){
+    //     document.querySelector('.slide-container').style.transform = 'translateX(-200vw)'
+    //     지금사진 += 1;
+    //     console.log(지금사진);
+    //   }
+    // });
+    // transform = `translateX(-${지금사진}00vw)`
+
+    document.querySelector('.next').addEventListener('click', function(){
+      if (지금사진 == 4) {
+        return; // 지금사진이 3이면 return을 이용해 이벤트를 무효화 시킴
+      }
+      document.querySelector('.slide-container').style.transform = `translateX(-${지금사진}00vw)`
+      지금사진 += 1;
+      console.log(지금사진);
+     });
+
+     document.querySelector('.prev').addEventListener('click', function(){
+      if (지금사진 == 1) {
+        return;
+      }
+      document.querySelector('.slide-container').style.transform = `translateX(-${지금사진-2}00vw)`
+      지금사진 -= 1;
+      console.log(지금사진);
+     });
+
+
+    // 이전 버튼
+    // document.querySelector('.prev').addEventListener('click', function(){
+    //   if (지금사진 == 3){
+    //     document.querySelector('.slide-container').style.transform = 'translateX(-100vw)'
+    //     지금사진 -= 1;
+    //     console.log(지금사진);
+    //   } else if (지금사진 == 2){
+    //     document.querySelector('.slide-container').style.transform = 'translateX(0vw)'
+    //     지금사진 -= 1;
+    //     console.log(지금사진);
+    //   }
+    // });
+
+
+
+
+    // 타이머
+    var 초 = 5;
+    var 타이머 = setInterval(function(){
+      초 -= 1;
+      document.querySelector('.timer').innerHTML = 초;
+      if (초 == 0){
+        clearTimeout(타이머);
+        document.querySelector('.alert').style.display = 'none';
+      }
+    }, 1000);
+
+    // 네비게이션 바
+    var count = 0;
+    $('.navbar-toggler').on('click', function(){
+      count += 1;
+      if (count % 2 == 1){
+        $('.list-group').addClass('show');
+      } else {
+        $('.list-group').removeClass('show');
+      }
+    });
+
+    // 모달창 켜고 끄기
+    $('#login').on('click', function(){
+      $('.black-bg').addClass('show-modal');
+    });
+
+    $('#close').on('click', function(){
+      $('.black-bg').removeClass('show-modal');
+    });
+
+    // 아이디 비번 입력창 공백검사
+    document.querySelector('form').addEventListener('submit', function(e){
+      var id = document.querySelector('.id').value;
+      var pw = document.querySelector('.password').value;
+      if (id == '' && pw == ''){
+        alert('아이디와 비밀번호를 입력하세요');
+        e.preventDefault();
+      } else if (id == '') {
+        alert('아이디를 입력하세요');
+        e.preventDefault();
+      } else if (pw == ''){
+        alert('비밀번호를 입력하세요');
+        e.preventDefault();
+      } else if (!(/\S+@\S+\.\S+/.test(id))) {
+        alert('올바른 이메일 형식을 입력하세요');
+        e.preventDefault();
+      } else if (!(/[A-Z]/.test(pw))) {
+        alert('비밀번호에 한개 이상의 대문자를 입력하세요');
+      } else if (pw.length < 6) {
+        alert('6자 이상의 비밀번호를 입력하세요');
+        e.preventDefault();
+      }
+    });
+
+    // 다크모드
+    var darkCount = 0;
+
+    document.querySelector('.badge').addEventListener('click', function(){
+      darkCount += 1;
+      if (darkCount % 2 == 1) {
+        document.querySelector('.badge').innerHTML = 'light 🔄';
+      } else {
+        document.querySelector('.badge').innerHTML = 'dark 🔄';
+      }
+    });
+    
+
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

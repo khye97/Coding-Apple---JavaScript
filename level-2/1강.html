@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1강</title>
+</head>
+<body>
+  <p>태조 이성계가 태어난 년도는?</p>
+  <input type="text" id="answer">
+  <button id="send-answer">제출</button>
+
+
+  <script>
+    // 태조 이성계 퀴즈
+    // 유저가 답을 맞추면 alert('성공');
+    // 유저가 답을 3번 찍어서 못맞추면 alert('멍청아');
+    // 답 1335
+
+    // 버튼을 눌렀을 때
+    // 유저가 작성한 인풋 값을 가져온다
+    // 유저의 인풋값이 1335이면 alert('성공')을 출력
+    // 유저가 답을 틀렸고, 버튼을 누른 횟수가 3번 이상이면 alert ('멍청아 출력');
+
+    var count = 0;
+
+    document.querySelector('#send-answer').addEventListener('click', function(){
+      count += 1;
+      console.log(count);
+      var 답안 = document.querySelector('#answer').value;
+      if (답안 == '1335'){
+        alert('성공');
+      } else if (답안 != '1335' && count >=3 ){
+        alert('멍청아');
+      }
+    });
+
+
+    var 예금액 = 60000;
+    var 미래예금액 = 0;
+
+    function 이율계산기(예금액){
+      if (예금액 > 50000) {
+        미래예금액 = 예금액 * 1.2 * 1.2;
+      } else {
+        미래예금액 = 예금액 * 1.15 * 1.15;
+      }  
+      console.log(미래예금액);
+    }
+
+    이율계산기 (60000);
+    이율계산기 (10000);
+
+    // 커피 리필
+
+    function 커피리필(처음커피양){
+      최종 = 처음커피양 + 처음커피양 * 2/3 + 처음커피양 * 2/3 * 2/3;
+      console.log(최종);
+    }
+    커피리필(360);
+
+  </script>
+  
+</body>
+</html>
